@@ -1,68 +1,106 @@
-
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { User } from '../types';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   onOpenModal: () => void;
   onSearch: (query: string) => void;
-  currentUser: User | null;
+  currentUser: any;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
+  onLogout: () => void;  // Add this prop
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onOpenModal, onSearch, currentUser, theme, onToggleTheme }) => {
+const Navbar: React.FC<NavbarProps> = ({
+  onOpenModal,
+  onSearch,
+  currentUser,
+  theme,
+  onToggleTheme,
+  onLogout  // Add this
+}) => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    onLogout();
+    navigate('/login');
+  };
+
   return (
-    <nav className={`fixed top-0 w-full h-16 border-b z-50 px-4 shadow-lg transition-colors duration-300 ${theme === 'dark' ? 'bg-slate-950 border-slate-800' : 'bg-white border-slate-200'}`}>
-      <div className="max-w-6xl mx-auto h-full flex items-center gap-4 lg:gap-8">
-        <Link to="/" className="flex items-center gap-2 group">
-          <span className={`text-xl font-black tracking-tight transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'}`}>
-            Codevirus <span className="text-blue-500">Insights</span>
-          </span>
-        </Link>
-
-        <div className={`hidden md:flex gap-6 h-full items-center ${theme === 'dark' ? 'text-slate-500' : 'text-slate-400'}`}>
-          <Link to="/" className="hover:text-blue-500 h-full flex items-center border-b-2 border-transparent hover:border-blue-500 transition-all">
-            <i className="fa-solid fa-terminal"></i>
+    <nav className={`fixed top-0 w-full z-50 border-b transition-colors ${theme === 'dark'
+        ? 'bg-slate-900/95 border-slate-800'
+        : 'bg-white/95 border-slate-200'
+      } backdrop-blur`}>
+      <div className="max-w-6xl mx-auto px-4 py-3">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link to="/" className="text-xl font-bold text-blue-600">
+            CodeVirus
           </Link>
-          <button className="hover:text-blue-500 h-full flex items-center border-b-2 border-transparent hover:border-blue-500 transition-all">
-            <i className="fa-solid fa-shield-halved"></i>
-          </button>
-        </div>
 
-        <div className="flex-1 relative">
-          <i className="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"></i>
-          <input
-            type="text"
-            placeholder="Search security archives..."
-            className={`w-full border rounded px-10 py-2 text-sm transition-all focus:outline-none focus:ring-1 focus:ring-blue-500 ${theme === 'dark'
-                ? 'bg-slate-900 border-slate-800 text-slate-200 placeholder:text-slate-600'
-                : 'bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400'
-              }`}
-            onChange={(e) => onSearch(e.target.value)}
-          />
-        </div>
+          {/* Search Bar */}
+          <div className="flex-1 max-w-xl mx-4">
+            <input
+              type="text"
+              placeholder="Search questions..."
+              onChange={(e) => onSearch(e.target.value)}
+              className={`w-full px-4 py-2 rounded-full border ${theme === 'dark'
+                  ? 'bg-slate-800 border-slate-700 text-white placeholder-slate-400'
+                  : 'bg-white border-slate-300 placeholder-slate-500'
+                } focus:outline-none focus:ring-2 focus:ring-blue-500`}
+            />
+          </div>
 
-        <div className="flex items-center gap-4">
-          <button
-            onClick={onToggleTheme}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'text-yellow-400 hover:bg-slate-800' : 'text-slate-600 hover:bg-slate-100'
-              }`}
-          >
-            <i className={`fa-solid ${theme === 'dark' ? 'fa-sun' : 'fa-moon'}`}></i>
-          </button>
+          {/* Right Section */}
+          <div className="flex items-center gap-4">
+            {/* Theme Toggle */}
+            <button
+              onClick={onToggleTheme}
+              className={`p-2 rounded-full ${theme === 'dark'
+                  ? 'bg-slate-800 text-yellow-400'
+                  : 'bg-slate-200 text-slate-700'
+                }`}
+            >
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
 
-          {currentUser && (
-            <>
-              <img src={currentUser.avatar} alt="avatar" className="w-8 h-8 rounded-full border border-blue-500/50" />
-              <button
-                className="bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-bold hover:bg-blue-50 transition-all shadow-md shadow-blue-900/20 active:scale-95"
-                onClick={onOpenModal}
-              >
-                Inquiry
-              </button>
-            </>
-          )}
+            {/* User Section */}
+            {currentUser ? (
+              <>
+                <button
+                  onClick={onOpenModal}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
+                  Ask Question
+                </button>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm hidden sm:inline">
+                    {currentUser.name}
+                  </span>
+                  <button
+                    onClick={handleLogout}
+                    className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700 transition"
+                  >
+                    Logout
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className="flex gap-2">
+                <Link
+                  to="/login"
+                  className="px-4 py-2 text-blue-600 hover:underline"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/register"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                >
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </nav>

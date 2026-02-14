@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { User } from "../types";
+import OtpModal from "./OtpModal";
 
 interface AuthModalProps {
   onLogin: (user: User) => void;
@@ -14,6 +15,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onLogin, theme }) => {
   const [avatar, setAvatar] = useState(
     "https://picsum.photos/seed/cyber-default/100/100"
   );
+  const [showOtp, setShowOtp] = useState(false);
+
   const [loading, setLoading] = useState(false);
 
   const avatars = [
@@ -30,36 +33,24 @@ const AuthModal: React.FC<AuthModalProps> = ({ onLogin, theme }) => {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("http://localhost:5000/api/auth/send-otp", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        alert(data.message || "Registration failed");
+        alert(data.message || "Failed to send OTP");
         return;
       }
 
-      const newUser: User = {
-        id: data.user._id,
-        name: data.user.name,
-        bio,
-        avatar,
-      };
+      setShowOtp(true);   // 👈 IMPORTANT
 
-      // store token for future use
-      localStorage.setItem("token", data.token || "");
 
-      onLogin(newUser);
+
+
     } catch (err) {
       alert("Server error. Make sure backend is running.");
       console.error(err);
@@ -72,8 +63,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ onLogin, theme }) => {
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-xl">
       <div
         className={`w-full max-w-md rounded-2xl shadow-2xl border p-8 ${theme === "dark"
-            ? "bg-slate-900 border-slate-800 text-white"
-            : "bg-white border-slate-200 text-slate-900"
+          ? "bg-slate-900 border-slate-800 text-white"
+          : "bg-white border-slate-200 text-slate-900"
           }`}
       >
         <h1 className="text-3xl font-black text-center mb-6">
@@ -133,6 +124,28 @@ const AuthModal: React.FC<AuthModalProps> = ({ onLogin, theme }) => {
             {loading ? "Creating..." : "INITIALIZE ACCOUNT"}
           </button>
         </form>
+        {showOtp && (
+          <OtpModal
+            email={email}
+            name={name}
+            password={password}
+            bio={bio}
+            avatar={avatar}
+            onSuccess={(user, token) => {
+              localStorage.setItem("token", token);
+
+              const newUser: User = {
+                id: user._id,
+                name: user.name,
+                bio,
+                avatar,
+              };
+
+              onLogin(newUser);
+            }}
+          />
+        )}
+
       </div>
     </div>
   );
