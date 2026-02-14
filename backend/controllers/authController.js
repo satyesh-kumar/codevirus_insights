@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
-import transporter, { sendOtpEmail, sendWelcomeEmail } from "../config/mailer.js"; // CHANGE THIS LINE
+import transporter, { sendOtpEmail, sendWelcomeEmail } from "../config/mailer.js";
 
 /* SEND OTP */
 export const sendOtp = async (req, res) => {
@@ -30,9 +30,9 @@ export const sendOtp = async (req, res) => {
     // CHANGE THIS - Use the professional email template
     await sendOtpEmail(email, otp);
 
-    res.json({ message: "Verification code sent to your email" }); // Optional: change message
+    res.json({ message: "Verification code sent to your email" });
   } catch (err) {
-    console.error("OTP sending error:", err); // Add error logging
+    console.error("OTP sending error:", err);
     res.status(500).json({ message: "Failed to send verification code" });
   }
 };
@@ -45,7 +45,7 @@ export const verifyOtp = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user || user.otp !== otp || user.otpExpiry < new Date()) {
-      return res.status(400).json({ message: "Invalid or expired verification code" }); // Optional: change message
+      return res.status(400).json({ message: "Invalid or expired verification code" });
     }
 
     user.isVerified = true;
@@ -53,7 +53,7 @@ export const verifyOtp = async (req, res) => {
     user.otpExpiry = null;
     await user.save();
 
-    res.json({ message: "Email verified successfully" }); // Optional: change message
+    res.json({ message: "Email verified successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -80,7 +80,7 @@ export const registerUser = async (req, res) => {
     user.password = hashedPassword;
     await user.save();
 
-    // ADD THIS - Send welcome email after successful registration
+
     await sendWelcomeEmail(email, name);
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -88,12 +88,12 @@ export const registerUser = async (req, res) => {
     });
 
     res.json({
-      message: "Registration successful! Welcome to CodeVirus.", // Optional: change message
+      message: "Registration successful! Welcome to CodeVirus.",
       token,
-      user: { id: user._id, name: user.name, email: user.email } // Send only necessary user data
+      user: { id: user._id, name: user.name, email: user.email }
     });
   } catch (err) {
-    console.error("Registration error:", err); // Add error logging
+    console.error("Registration error:", err);
     res.status(500).json({ message: err.message });
   }
 };
@@ -124,7 +124,7 @@ export const loginUser = async (req, res) => {
       user: { id: user._id, name: user.name, email: user.email } // Send only necessary user data
     });
   } catch (err) {
-    console.error("Login error:", err); // Add error logging
+    console.error("Login error:", err);
     res.status(500).json({ message: err.message });
   }
 };
