@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-// 1. Get the API URL from Vite's environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 interface LoginPageProps {
@@ -23,7 +22,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, theme }) => {
         setError('');
 
         try {
-            // 2. Use the dynamic API_URL instead of the localhost string
+
             const response = await axios.post(`${API_URL}/api/auth/login`, {
                 email,
                 password
