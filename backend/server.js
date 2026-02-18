@@ -8,7 +8,9 @@ import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    origin: "https://codevirus-insights.vercel.app"
+}));
 app.use(express.json());
 
 
@@ -20,7 +22,7 @@ mongoose
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Backend running 🚀");
+    res.send("Backend running ");
 });
 
 

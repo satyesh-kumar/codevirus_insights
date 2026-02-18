@@ -27,7 +27,6 @@ export const sendOtp = async (req, res) => {
       await user.save();
     }
 
-    // CHANGE THIS - Use the professional email template
     await sendOtpEmail(email, otp);
 
     res.json({ message: "Verification code sent to your email" });
