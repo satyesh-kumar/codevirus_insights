@@ -10,6 +10,7 @@ import RegisterPage from './pages/RegisterPage';
 import { Question, User } from './types';
 import { initialQuestions } from './data/mockData';
 
+
 const STORAGE_KEY = 'codevirus_data';
 const USER_KEY = 'codevirus_user';
 const THEME_KEY = 'codevirus_theme';

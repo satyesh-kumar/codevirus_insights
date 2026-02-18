@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import dotenv from 'dotenv';
 
+dotenv.config();
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 interface RegisterPageProps {
     onLogin: (user: any) => void;
     theme: 'light' | 'dark';
@@ -26,7 +29,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onLogin, theme }) => {
         setMessage('');
 
         try {
-            await axios.post('http://localhost:5000/api/auth/send-otp', { email });
+            await axios.post(`${API_URL}/api/auth/send-otp`, { email });
             setMessage('OTP sent to your email');
             setStep('otp');
         } catch (err: any) {
@@ -44,7 +47,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onLogin, theme }) => {
         setMessage('');
 
         try {
-            await axios.post('http://localhost:5000/api/auth/verify-otp', { email, otp });
+            await axios.post(`${API_URL}/api/auth/verify-otp`, { email, otp });
             setMessage('OTP verified successfully');
             setStep('register');
         } catch (err: any) {
@@ -61,7 +64,7 @@ const RegisterPage: React.FC<RegisterPageProps> = ({ onLogin, theme }) => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/register', {
+            const response = await axios.post(`${API_URL}/api/auth/register`, {
                 name,
                 email,
                 password
