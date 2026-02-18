@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
+// 1. Get the API URL from Vite's environment variables
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 interface LoginPageProps {
     onLogin: (user: any) => void;
     theme: 'light' | 'dark';
@@ -20,7 +23,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, theme }) => {
         setError('');
 
         try {
-            const response = await axios.post('http://localhost:5000/api/auth/login', {
+            // 2. Use the dynamic API_URL instead of the localhost string
+            const response = await axios.post(`${API_URL}/api/auth/login`, {
                 email,
                 password
             });
@@ -37,6 +41,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, theme }) => {
             setLoading(false);
         }
     };
+
 
     return (
         <div className={`min-h-screen flex items-center justify-center transition-colors duration-300 ${theme === 'dark' ? 'bg-slate-950' : 'bg-slate-50'
@@ -59,8 +64,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, theme }) => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className={`w-full p-3 rounded border ${theme === 'dark'
-                                    ? 'bg-slate-800 border-slate-700 text-white'
-                                    : 'bg-white border-slate-300'
+                                ? 'bg-slate-800 border-slate-700 text-white'
+                                : 'bg-white border-slate-300'
                                 }`}
                             placeholder="Enter your email"
                             required
@@ -74,8 +79,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin, theme }) => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className={`w-full p-3 rounded border ${theme === 'dark'
-                                    ? 'bg-slate-800 border-slate-700 text-white'
-                                    : 'bg-white border-slate-300'
+                                ? 'bg-slate-800 border-slate-700 text-white'
+                                : 'bg-white border-slate-300'
                                 }`}
                             placeholder="Enter your password"
                             required
