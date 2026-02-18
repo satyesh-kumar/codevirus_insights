@@ -20,8 +20,9 @@ mongoose
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to CodeVirus Insights API");
+  res.send("Backend running 🚀");
 });
+
 
 app.listen(process.env.PORT, () =>
     console.log(`Server running on port ${process.env.PORT}`)
