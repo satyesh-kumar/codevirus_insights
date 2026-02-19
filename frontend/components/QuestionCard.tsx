@@ -11,7 +11,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
   const topAnswer = question.answers.length > 0 ? question.answers[0] : null;
 
   return (
-    <div className="bg-slate-900/80 backdrop-blur border border-slate-800 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
+    <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img src={question.author.avatar} alt="author" className="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-800" />
