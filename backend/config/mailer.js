@@ -10,7 +10,7 @@ export const sendOtpEmail = async (email, otp) => {
     from: `CodeVirus <${process.env.EMAIL_FROM}>`,
     to: email,
     subject: "Your OTP Code",
-    html: `<h2>Your OTP is: ${otp}</h2><p>Expires in 5 minutes</p>`,
+    html: `<h2>Your OTP is: ${otp}</h2><p>Expires in 5 minutes.</p>`,
   });
 };
 
@@ -19,6 +19,6 @@ export const sendWelcomeEmail = async (email, name) => {
     from: `CodeVirus <${process.env.EMAIL_FROM}>`,
     to: email,
     subject: "Welcome to CodeVirus 🎉",
-    html: `<h2>Welcome ${name}</h2><p>Your account is verified.</p>`,
+    html: `<h2>Welcome ${name || "User"} 👋</h2>`,
   });
 };
