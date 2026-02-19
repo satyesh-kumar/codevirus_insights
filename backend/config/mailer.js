@@ -3,21 +3,20 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  // This is a direct IPv4 address for Gmail's SMTP
+  host: "74.125.136.108",
   port: 587,
   secure: false,
-  // This forces the connection to use IPv4 instead of the broken IPv6
-  family: 4,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
   tls: {
-    rejectUnauthorized: false,
-    minVersion: "TLSv1.2"
-  },
-  connectionTimeout: 30000, // 30 seconds
-  greetingTimeout: 30000,
+    // This is REQUIRED because the certificate is for 'smtp.gmail.com'
+    // but we are connecting via the IP address.
+    servername: "smtp.gmail.com",
+    rejectUnauthorized: false
+  }
 });
 
 export const sendOtpEmail = async (email, otp) => {
