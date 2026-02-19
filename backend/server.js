@@ -8,11 +8,6 @@ import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
-import cors from "cors";
-
-// ... other imports
-
-
 app.use(cors({
     origin: "https://codevirus-insights.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
