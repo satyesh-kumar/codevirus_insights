@@ -2,7 +2,8 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import otpGenerator from "otp-generator";
-import transporter, { sendOtpEmail, sendWelcomeEmail } from "../config/mailer.js";
+import { sendOtpEmail, sendWelcomeEmail } from "../config/mailer.js";
+
 
 /* SEND OTP */
 export const sendOtp = async (req, res) => {
