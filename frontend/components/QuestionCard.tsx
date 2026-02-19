@@ -11,7 +11,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
   const topAnswer = question.answers.length > 0 ? question.answers[0] : null;
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
+    <div className="bg-slate-900/80 backdrop-blur border border-slate-800 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden hover:border-blue-200 dark:hover:border-blue-800 transition-colors">
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img src={question.author.avatar} alt="author" className="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-800" />
@@ -23,19 +23,19 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
             <i className="fa-solid fa-ellipsis"></i>
           </button>
         </div>
-        
+
         <Link to={`/question/${question.id}`} className="block group">
           <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{question.title}</h2>
         </Link>
-        
+
         {question.content && (
           <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">{question.content}</p>
         )}
 
         {question.imageUrl && (
           <div className="relative mb-4 group overflow-hidden rounded">
-             <img src={question.imageUrl} alt="context" className="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-105" />
-             <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+            <img src={question.imageUrl} alt="context" className="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
           </div>
         )}
 
@@ -61,7 +61,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question }) => {
               <i className="fa-solid fa-down-long"></i>
             </button>
           </div>
-          
+
           <Link to={`/question/${question.id}`} className="flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-800 py-1.5 px-3 rounded-full text-slate-500 transition-colors">
             <i className="fa-regular fa-comment-dots"></i>
             <span className="text-xs font-medium">{question.answers.length}</span>
