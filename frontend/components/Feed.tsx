@@ -13,17 +13,15 @@ const Feed: React.FC<FeedProps> = ({ questions, theme }) => {
   return (
     <div className="flex flex-col gap-4 mb-8">
       {/* Ask prompt */}
-      <div className={`rounded-lg p-4 border shadow-sm flex flex-col gap-3 transition-colors ${
-        theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
-      }`}>
+      <div className={`rounded-lg p-4 border shadow-sm flex flex-col gap-3 transition-colors ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'
+        }`}>
         <div className="flex gap-3">
           <img src="https://picsum.photos/seed/cyber-user/100/100" className="w-10 h-10 rounded-full" alt="me" />
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Discovered a vulnerability? Document it here..."
-            className={`flex-1 border rounded-full px-4 text-sm transition-colors cursor-pointer ${
-              theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600'
-            }`}
+            className={`flex-1 border rounded-full px-4 text-sm transition-colors cursor-pointer ${theme === 'dark' ? 'bg-slate-800 border-slate-700 hover:bg-slate-700 text-slate-300' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-600'
+              }`}
             readOnly
           />
         </div>
@@ -46,9 +44,14 @@ const Feed: React.FC<FeedProps> = ({ questions, theme }) => {
       </div>
 
       {questions.map(question => (
-        <QuestionCard key={question.id} question={question} />
+        <QuestionCard
+          key={question.id}
+          question={question}
+          theme={theme}
+        />
+
       ))}
-      
+
       {questions.length === 0 && (
         <div className={`p-12 text-center rounded-lg border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
           <i className="fa-solid fa-radar text-4xl text-slate-200 dark:text-slate-800 mb-4"></i>
