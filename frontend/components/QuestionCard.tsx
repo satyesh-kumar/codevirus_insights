@@ -12,12 +12,23 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
   const topAnswer = question.answers.length > 0 ? question.answers[0] : null;
 
   return (
-    <div className={`bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden hover:border-blue-200 dark:hover:border-blue-800 transition-colors ${theme === 'dark' ? 'dark' : ''}`}>
+    <div
+      className={`rounded-lg border shadow-sm overflow-hidden transition-colors
+  ${theme === 'dark'
+          ? 'bg-slate-900 border-slate-800 hover:border-blue-800'
+          : 'bg-white border-slate-200 hover:border-blue-200'
+        }`}
+    >
+
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
           <img src={question.author.avatar} alt="author" className="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-800" />
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-slate-700 dark:text-slate-200 hover:text-blue-600 transition-colors cursor-pointer">{question.author.name}</span>
+            <span
+              className={`text-sm font-bold hover:text-blue-600 transition-colors cursor-pointer ${theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
+                }`}
+            >
+              {question.author.name}</span>
             <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">{question.timestamp} • {question.topic}</span>
           </div>
           <button className="ml-auto text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors">
@@ -26,11 +37,19 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
         </div>
 
         <Link to={`/question/${question.id}`} className="block group">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">{question.title}</h2>
+          <h2
+            className={`text-lg font-bold mb-2 group-hover:text-blue-600 transition-colors ${theme === 'dark' ? 'text-white' : 'text-slate-900'
+              }`}
+          >
+            {question.title}</h2>
         </Link>
 
         {question.content && (
-          <p className="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-3">{question.content}</p>
+          <p
+            className={`text-sm mb-4 line-clamp-3 ${theme === 'dark' ? 'text-slate-400' : 'text-slate-600'
+              }`}
+          >
+            {question.content}</p>
         )}
 
         {question.imageUrl && (
@@ -41,7 +60,13 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
         )}
 
         {topAnswer && (
-          <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg border border-slate-100 dark:border-slate-800 mb-4 border-l-4 border-l-blue-400">
+          <div
+            className={`p-4 rounded-lg border mb-4 border-l-4 border-l-blue-400 ${theme === 'dark'
+                ? 'bg-slate-800/50 border-slate-800'
+                : 'bg-slate-50 border-slate-100'
+              }`}
+          >
+
             <div className="flex items-center gap-2 mb-2">
               <img src={topAnswer.author.avatar} className="w-5 h-5 rounded-full" alt="answerer" />
               <span className="text-[10px] font-bold text-slate-500 uppercase">Analysis Provided:</span>
