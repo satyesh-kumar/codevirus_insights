@@ -44,7 +44,12 @@ const Feed: React.FC<FeedProps> = ({ questions, theme }) => {
       </div>
 
       {questions.map(question => (
-        <QuestionCard key={question.id} question={question} />
+        <QuestionCard
+          key={question.id}
+          question={question}
+          theme={theme}
+        />
+
       ))}
 
       {questions.length === 0 && (
