@@ -6,20 +6,18 @@ const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false,
+  // This forces the connection to use IPv4 instead of the broken IPv6
+  family: 4,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  // ADD THIS SECTION BELOW
-  connectionTimeout: 20000,
-  greetingTimeout: 20000,
-  socketTimeout: 20000,
-  dnsTimeout: 10000,
-  // Force IPv4
-  family: 4,
   tls: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+    minVersion: "TLSv1.2"
+  },
+  connectionTimeout: 30000, // 30 seconds
+  greetingTimeout: 30000,
 });
 
 export const sendOtpEmail = async (email, otp) => {
