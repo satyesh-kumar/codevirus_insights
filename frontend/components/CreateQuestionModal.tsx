@@ -33,7 +33,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
 
       // 4. Send to your Render Backend
       const response = await axios.post(
-        'https://your-render-url.onrender.com/api/questions',
+        'https://codevirus-insights-1.onrender.com/api/questions',
         {
           title,
           content,
