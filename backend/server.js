@@ -5,7 +5,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import authRoutes from "./routes/authRoutes.js";
-
+import questionRoutes from "./routes/questionRoutes.js";
 const app = express();
 
 app.use(cors({
@@ -14,9 +14,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(express.json()); // Ensure this is below CORS
-
-app.use(express.json());
+app.use(express.json()); 
 
 
 mongoose
@@ -25,6 +23,9 @@ mongoose
     .catch((err) => console.log(err));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/questions", questionRoutes);
+
+
 
 app.get("/", (req, res) => {
     res.send("Backend running ");
