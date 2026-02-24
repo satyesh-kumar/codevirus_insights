@@ -12,7 +12,6 @@ export const createQuestion = async (req, res) => {
       content,
       topic,
       imageUrl,
-      author: req.user._id,
     });
 
     res.status(201).json(question);
