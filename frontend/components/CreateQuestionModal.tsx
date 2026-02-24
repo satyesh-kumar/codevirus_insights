@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { User, Question } from '../types';
-import { generateTopicImage } from '../services/geminiService';
+// import { generateTopicImage } from '../services/geminiService';
 import axios from 'axios';
 interface CreateQuestionModalProps {
   onClose: () => void;
