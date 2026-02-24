@@ -9,7 +9,9 @@ interface QuestionCardProps {
 }
 
 const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
-  const topAnswer = question.answers.length > 0 ? question.answers[0] : null;
+  const topAnswer = question.answers?.length > 0
+    ? question.answers[0]
+    : null;
 
   return (
     <div
@@ -62,8 +64,8 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
         {topAnswer && (
           <div
             className={`p-4 rounded-lg border mb-4 border-l-4 border-l-blue-400 ${theme === 'dark'
-                ? 'bg-slate-800/50 border-slate-800'
-                : 'bg-slate-50 border-slate-100'
+              ? 'bg-slate-800/50 border-slate-800'
+              : 'bg-slate-50 border-slate-100'
               }`}
           >
 
