@@ -11,43 +11,6 @@ interface FeedProps {
 
 
 
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Feed from "./Feed";
-import CreateQuestionModal from "./CreateQuestionModal";
-
-const Home = ({ theme }) => {
-  const [questions, setQuestions] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-
-  // Fetch questions on load
-  useEffect(() => {
-    const fetchQuestions = async () => {
-      const res = await axios.get("http://localhost:5000/api/questions");
-      setQuestions(res.data);
-    };
-    fetchQuestions();
-  }, []);
-
-  return (
-    <>
-      <Feed questions={questions} theme={theme} />
-
-      {showModal && (
-        <CreateQuestionModal
-          onClose={() => setShowModal(false)}
-          onSubmit={(newQuestion) => {
-            // 🔥 THIS MAKES IT LIVE
-            setQuestions(prev => [newQuestion, ...prev]);
-          }}
-          theme={theme}
-        />
-      )}
-    </>
-  );
-};
-
-export default Home;
 
 
 const Feed: React.FC<FeedProps> = ({ questions, theme }) => {
