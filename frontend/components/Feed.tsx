@@ -47,16 +47,16 @@ const Feed: React.FC<FeedProps> = ({ questions, theme }) => {
         </div>
       </div>
 
-      {questions.map(question => (
+      {(questions || []).map(question => (
         <QuestionCard
-         key={question._id}
+          key={question._id}
           question={question}
           theme={theme}
         />
 
       ))}
 
-      {questions.length === 0 && (
+      {(!questions || questions.length === 0) && (
         <div className={`p-12 text-center rounded-lg border ${theme === 'dark' ? 'bg-slate-900 border-slate-800' : 'bg-white border-slate-200'}`}>
           <i className="fa-solid fa-radar text-4xl text-slate-200 dark:text-slate-800 mb-4"></i>
           <p className="text-slate-500">No active logs matching your criteria.</p>
