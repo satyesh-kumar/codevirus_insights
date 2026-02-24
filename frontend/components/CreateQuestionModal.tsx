@@ -24,9 +24,9 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
     try {
       // 2. Handle Image Generation (Existing logic)
       let imageUrl = undefined;
-      if (title.length > 5) {
-        imageUrl = await generateTopicImage(title);
-      }
+      // if (title.length > 5) {
+      //   imageUrl = await generateTopicImage(title);
+      // }
 
       // 3. Get the Token (Assumes you stored it in localStorage during Login)
       const token = localStorage.getItem('token');
