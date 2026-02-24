@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import { User, Question } from '../types';
-// import { generateTopicImage } from '../services/geminiService';
 import axios from 'axios';
 interface CreateQuestionModalProps {
   onClose: () => void;
@@ -19,7 +18,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
   const handleSubmit = async () => {
     if (!title.trim()) return;
 
-    setIsGeneratingImage(true);
+    // setIsGeneratingImage(true);
 
     try {
       // 2. Handle Image Generation (Existing logic)
@@ -55,7 +54,7 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
       console.error("Broadcast failed:", error.response?.data?.message || error.message);
       alert("Security Inquiry failed to broadcast. Check connection.");
     } finally {
-      setIsGeneratingImage(false);
+      // setIsGeneratingImage(false);
     }
   };
 
