@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Question, Answer } from '../types';
-import { generateAIAnswer } from '../services/geminiService';
+// import { generateAIAnswer } from '../services/geminiService';
 import { currentUser } from '../data/mockData';
 
 interface QuestionDetailProps {
@@ -15,7 +15,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
   const navigate = useNavigate();
   const [isGenerating, setIsGenerating] = useState(false);
   const [answerContent, setAnswerContent] = useState('');
-  
+
   const question = questions.find(q => q.id === id);
 
   if (!question) {
@@ -27,38 +27,38 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
     );
   }
 
-  const handleAIAnswer = async () => {
-    setIsGenerating(true);
-    try {
-      const { text, sources } = await generateAIAnswer(question.title, question.content);
-      const newAnswer: Answer = {
-        id: `ai-${Date.now()}`,
-        author: {
-          id: 'ai-bot',
-          name: 'Gemini AI Advisor',
-          avatar: 'https://www.gstatic.com/lamda/images/favicon_v1_150160d1398251f24d33.png',
-        },
-        content: text,
-        upvotes: 0,
-        timestamp: 'Just now',
-        isAI: true,
-        sources,
-      };
-      
-      onUpdate({
-        ...question,
-        answers: [newAnswer, ...question.answers]
-      });
-    } catch (error) {
-      alert("Failed to generate AI answer. Please try again.");
-    } finally {
-      setIsGenerating(false);
-    }
-  };
+  // const handleAIAnswer = async () => {
+  //   setIsGenerating(true);
+  //   try {
+  //     const { text, sources } = await generateAIAnswer(question.title, question.content);
+  //     const newAnswer: Answer = {
+  //       id: `ai-${Date.now()}`,
+  //       author: {
+  //         id: 'ai-bot',
+  //         name: 'Gemini AI Advisor',
+  //         avatar: 'https://www.gstatic.com/lamda/images/favicon_v1_150160d1398251f24d33.png',
+  //       },
+  //       content: text,
+  //       upvotes: 0,
+  //       timestamp: 'Just now',
+  //       isAI: true,
+  //       sources,
+  //     };
+
+  //     onUpdate({
+  //       ...question,
+  //       answers: [newAnswer, ...question.answers]
+  //     });
+  //   } catch (error) {
+  //     alert("Failed to generate AI answer. Please try again.");
+  //   } finally {
+  //     setIsGenerating(false);
+  //   }
+  // };
 
   const handleSubmitAnswer = () => {
     if (!answerContent.trim()) return;
-    
+
     const newAnswer: Answer = {
       id: `ans-${Date.now()}`,
       author: currentUser,
@@ -90,8 +90,8 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
         {question.imageUrl && <img src={question.imageUrl} className="w-full rounded-lg mb-6 shadow-sm border" alt="main" />}
 
         <div className="flex items-center gap-3 border-b pb-6">
-          <button 
-            onClick={handleAIAnswer}
+          <button
+            // onClick={handleAIAnswer}
             disabled={isGenerating}
             className={`flex items-center gap-2 bg-blue-50 text-blue-700 px-5 py-2 rounded-full font-semibold transition-all shadow-sm ${isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-100'}`}
           >
@@ -102,25 +102,25 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
             )}
             {isGenerating ? 'Thinking...' : 'Get AI Answer'}
           </button>
-          
+
           <button className="flex items-center gap-2 bg-gray-100 text-gray-700 px-5 py-2 rounded-full font-semibold hover:bg-gray-200 transition-all">
             <i className="fa-solid fa-pen-nib"></i>
             Answer
           </button>
-          
+
           <div className="flex items-center gap-4 ml-auto text-gray-400">
-             <i className="fa-solid fa-share cursor-pointer hover:text-gray-600"></i>
-             <i className="fa-solid fa-ellipsis cursor-pointer hover:text-gray-600"></i>
+            <i className="fa-solid fa-share cursor-pointer hover:text-gray-600"></i>
+            <i className="fa-solid fa-ellipsis cursor-pointer hover:text-gray-600"></i>
           </div>
         </div>
 
         <div className="mt-8">
           <h3 className="font-bold text-lg mb-4">{question.answers.length} Answers</h3>
-          
+
           <div className="flex gap-4 mb-8">
             <img src={currentUser.avatar} className="w-10 h-10 rounded-full" alt="me" />
             <div className="flex-1">
-              <textarea 
+              <textarea
                 className="w-full border border-gray-200 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
                 placeholder="Write your answer..."
                 rows={4}
@@ -128,7 +128,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
                 onChange={(e) => setAnswerContent(e.target.value)}
               ></textarea>
               <div className="flex justify-end mt-2">
-                <button 
+                <button
                   onClick={handleSubmitAnswer}
                   className="bg-blue-600 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-700 transition-colors"
                 >
@@ -159,10 +159,10 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
                     <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2">Sources Referenced</p>
                     <div className="flex flex-wrap gap-2">
                       {answer.sources.map((src, i) => (
-                        <a 
-                          key={i} 
-                          href={src.uri} 
-                          target="_blank" 
+                        <a
+                          key={i}
+                          href={src.uri}
+                          target="_blank"
                           rel="noreferrer"
                           className="text-[11px] bg-white border border-blue-200 text-blue-600 px-3 py-1 rounded-full hover:bg-blue-50 transition-colors"
                         >
