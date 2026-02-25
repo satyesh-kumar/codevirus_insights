@@ -78,7 +78,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
     <div className="flex flex-col gap-4">
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
         <div className="flex items-center gap-2 mb-4">
-          <img src={question.author.avatar} alt="author" className="w-10 h-10 rounded-full" />
+          <img src={question.author?.avatar || "https://i.pravatar.cc/40"} alt="author" className="w-10 h-10 rounded-full" />
           <div className="flex flex-col">
             <span className="font-bold text-gray-800">{question.author.name}</span>
             <span className="text-xs text-gray-500">{question.timestamp} in {question.topic}</span>
@@ -118,7 +118,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
           <h3 className="font-bold text-lg mb-4">{question.answers.length} Answers</h3>
 
           <div className="flex gap-4 mb-8">
-            <img src={currentUser.avatar} className="w-10 h-10 rounded-full" alt="me" />
+            <img src={currentUser?.avatar || "https://i.pravatar.cc/40"} className="w-10 h-10 rounded-full" alt="me" />
             <div className="flex-1">
               <textarea
                 className="w-full border border-gray-200 rounded-lg p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
@@ -142,7 +142,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
             {question.answers.map(answer => (
               <div key={answer.id} className={`p-4 rounded-xl border ${answer.isAI ? 'bg-blue-50 border-blue-100' : 'bg-white border-gray-100'}`}>
                 <div className="flex items-center gap-2 mb-3">
-                  <img src={answer.author.avatar} className="w-8 h-8 rounded-full" alt="ans-auth" />
+                  <img src={answer.author?.avatar || "https://i.pravatar.cc/40"} className="w-8 h-8 rounded-full" alt="ans-auth" />
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-gray-800 flex items-center gap-2">
                       {answer.author.name}

@@ -24,7 +24,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
 
       <div className="p-4">
         <div className="flex items-center gap-2 mb-2">
-          <img src={question.author.avatar} alt="author" className="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-800" />
+          <img src={question.author?.avatar} alt="author" className="w-8 h-8 rounded-full border border-slate-100 dark:border-slate-800" />
           <div className="flex flex-col">
             <span
               className={`text-sm font-bold hover:text-blue-600 transition-colors cursor-pointer ${theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
