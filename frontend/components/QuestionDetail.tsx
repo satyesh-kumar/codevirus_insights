@@ -80,7 +80,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
         <div className="flex items-center gap-2 mb-4">
           <img src={question.author?.avatar || "https://i.pravatar.cc/40"} alt="author" className="w-10 h-10 rounded-full" />
           <div className="flex flex-col">
-            <span className="font-bold text-gray-800">{question.author.name}</span>
+            <span className="font-bold text-gray-800">{question.author?.name || 'Anonymous'}</span>
             <span className="text-xs text-gray-500">{question.timestamp} in {question.topic}</span>
           </div>
         </div>
@@ -145,7 +145,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
                   <img src={answer.author?.avatar || "https://i.pravatar.cc/40"} className="w-8 h-8 rounded-full" alt="ans-auth" />
                   <div className="flex flex-col">
                     <span className="text-sm font-bold text-gray-800 flex items-center gap-2">
-                      {answer.author.name}
+                      {answer.author?.name || 'Anonymous'}
                       {answer.isAI && <span className="text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded-full">AI Verified</span>}
                     </span>
                     <span className="text-[10px] text-gray-400">{answer.timestamp}</span>

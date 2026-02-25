@@ -30,7 +30,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
               className={`text-sm font-bold hover:text-blue-600 transition-colors cursor-pointer ${theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
                 }`}
             >
-              {question.author.name}</span>
+              {question.author?.name || 'Anonymous'}</span>
             <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">{question.timestamp} • {question.topic}</span>
           </div>
           <button className="ml-auto text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 p-2 rounded-full transition-colors">

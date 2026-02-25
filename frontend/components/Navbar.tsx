@@ -74,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 </button>
                 <div className="flex items-center gap-2">
                   <span className="text-sm hidden sm:inline">
-                    {currentUser.name}
+                    {currentUser?.name || 'User'}
                   </span>
                   <button
                     onClick={handleLogout}
