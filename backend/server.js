@@ -8,11 +8,7 @@ import authRoutes from "./routes/authRoutes.js";
 import questionRoutes from "./routes/questionRoutes.js";
 const app = express();
 
-app.use(cors({
-    origin: "https://codevirus-insights-1.onrender.com",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-}));
+
 
 app.use(cors({
     origin: "*"
