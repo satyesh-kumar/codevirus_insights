@@ -4,7 +4,10 @@ const questionSchema = new mongoose.Schema({
   title: { type: String, required: true },
   content: { type: String },
   topic: { type: String },
-  imageUrl: { type: String },
+  imageUrl: {
+    type: String,
+    default: ""
+  },
 
   author: {
     type: mongoose.Schema.Types.ObjectId,

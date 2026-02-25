@@ -11,7 +11,7 @@ export const createQuestion = async (req, res) => {
       title,
       content,
       topic,
-      imageUrl,
+      imageUrl: imageUrl || ""
     });
 
     res.status(201).json(question);
@@ -29,9 +29,7 @@ export const createQuestion = async (req, res) => {
 
 export const getAllQuestions = async (req, res) => {
   try {
-    const questions = await Question.find()
-      .populate("author", "name avatar")
-      .sort({ createdAt: -1 });
+    const questions = await Question.find().sort({ createdAt: -1 });
 
     res.status(200).json(questions);
   } catch (error) {
