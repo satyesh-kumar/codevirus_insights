@@ -92,7 +92,7 @@ const QuestionCard: React.FC<QuestionCardProps> = ({ question, theme }) => {
 
           <Link to={`/question/${question.id}`} className="flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-800 py-1.5 px-3 rounded-full text-slate-500 transition-colors">
             <i className="fa-regular fa-comment-dots"></i>
-            <span className="text-xs font-medium">{question.answers.length}</span>
+            <span className="text-xs font-medium">{question.answers?.length || 0}</span>
           </Link>
 
           <button className="flex items-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-800 py-1.5 px-3 rounded-full text-slate-500 transition-colors">

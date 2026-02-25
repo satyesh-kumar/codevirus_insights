@@ -115,7 +115,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ questions, onUpdate }) 
         </div>
 
         <div className="mt-8">
-          <h3 className="font-bold text-lg mb-4">{question.answers.length} Answers</h3>
+          <h3 className="font-bold text-lg mb-4">{question.answers?.length || 0} Answers</h3>
 
           <div className="flex gap-4 mb-8">
             <img src={currentUser?.avatar || "https://i.pravatar.cc/40"} className="w-10 h-10 rounded-full" alt="me" />
