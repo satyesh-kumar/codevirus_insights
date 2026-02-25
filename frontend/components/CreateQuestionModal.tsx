@@ -83,7 +83,11 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
           </div>
 
           <div className="flex items-center gap-2 mb-4">
-            <img src={user.avatar} className="w-6 h-6 rounded-full" alt="avatar" />
+            <img
+              src={user?.avatar || "https://i.pravatar.cc/40"}
+              className="w-6 h-6 rounded-full"
+              alt="avatar"
+            />
             <select
               value={topic}
               onChange={(e) => setTopic(e.target.value)}
