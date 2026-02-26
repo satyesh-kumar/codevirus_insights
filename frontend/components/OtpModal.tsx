@@ -24,7 +24,7 @@ const OtpModal: React.FC<Props> = ({
         try {
             setLoading(true);
 
-            // 1️⃣ VERIFY OTP
+           
             const verifyRes = await fetch(
                 "http://localhost:5000/api/auth/verify-otp",
                 {
@@ -41,11 +41,10 @@ const OtpModal: React.FC<Props> = ({
                 return;
             }
 
-            // ⏳ wait 500ms to ensure DB update
+           
             await new Promise((resolve) => setTimeout(resolve, 500));
 
 
-            // 2️⃣ REGISTER AFTER VERIFY
             const registerRes = await fetch(
                 "http://localhost:5000/api/auth/register",
                 {

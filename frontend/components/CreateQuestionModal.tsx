@@ -21,16 +21,16 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
     // setIsGeneratingImage(true);
 
     try {
-      // 2. Handle Image Generation (Existing logic)
+    
       let imageUrl = undefined;
       // if (title.length > 5) {
       //   imageUrl = await generateTopicImage(title);
       // }
 
-      // 3. Get the Token (Assumes you stored it in localStorage during Login)
+     
       const token = localStorage.getItem('token');
 
-      // 4. Send to your Render Backend
+      
       const response = await axios.post(
         'https://codevirus-insights-1.onrender.com/api/questions',
         {
@@ -41,12 +41,12 @@ const CreateQuestionModal: React.FC<CreateQuestionModalProps> = ({ onClose, onSu
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // This sends the ID card to the Middleware
+            Authorization: `Bearer ${token}`, 
           },
         }
       );
 
-      // 5. Success! Pass the real database object back to the parent
+      
       onSubmit(response.data);
       onClose();
 

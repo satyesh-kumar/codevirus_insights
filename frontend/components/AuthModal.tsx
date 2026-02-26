@@ -46,7 +46,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onLogin, theme }) => {
         return;
       }
 
-      setShowOtp(true);   // 👈 IMPORTANT
+      setShowOtp(true);   
 
 
 

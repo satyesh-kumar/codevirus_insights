@@ -7,7 +7,7 @@ interface NavbarProps {
   currentUser: any;
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
-  onLogout: () => void;  // Add this prop
+  onLogout: () => void;  
 }
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({
   currentUser,
   theme,
   onToggleTheme,
-  onLogout  // Add this
+  onLogout  
 }) => {
   const navigate = useNavigate();
 
